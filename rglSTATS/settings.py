@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', LOCAL_SECRET_KEY)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['web-production-d1fab.up.railway.app']
+ALLOWED_HOSTS = ['web-production-d1fab.up.railway.app', 'tf.rglstatsprojekttemp.com', 'rglstatsprojekttemp.com']
 
 CSRF_TRUSTED_ORIGINS = ['https://web-production-d1fab.up.railway.app', 'https://tf.rglstatsprojekttemp.com', 'https://rglstatsprojekttemp.com']
 # Application definition
