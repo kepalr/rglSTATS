@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import dj_database_url
+import os
 
 from pathlib import Path
 
@@ -22,11 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 with open('/home/keplar/Agex/repos/project/secret_key.txt') as f:
-    SECRET_KEY = f.read().strip()
+    LOCAL_SECRET_KEY = f.read().strip()
+
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', LOCAL_SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['web-production-d1fab.up.railway.app', '127.0.0.1']
 
