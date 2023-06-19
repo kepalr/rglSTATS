@@ -35,7 +35,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['web-production-d1fab.up.railway.app']
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-d1fab.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-d1fab.up.railway.app', 'tf.rglstatsprojekttemp.com', 'rglstatsprojekttemp.com']
 # Application definition
 
 INSTALLED_APPS = [
