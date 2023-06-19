@@ -89,14 +89,14 @@ WSGI_APPLICATION = 'rglSTATS.wsgi.application'
 db_from_env = dj_database_url.config(conn_max_age=500)
 
 DATABASES = {
-    'default': db_from_env
-    # {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'rgl_stats2',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'TeamFortress2',
-    #     'HOST': 'localhost'
-    # }
+    'default': 
+    {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'rgl_stats2',
+        # 'USER': 'postgres',
+        # 'PASSWORD': 'TeamFortress2',
+        # 'HOST': 'localhost'
+    }
 }
 
 DATABASES['default'].update(db_from_env)
