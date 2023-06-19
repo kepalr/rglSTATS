@@ -24,8 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-with open('/home/keplar/Agex/repos/project/secret_key.txt') as f:
-    LOCAL_SECRET_KEY = f.read().strip()
+LOCAL_SECRET_KEY = ''
+# with open('/home/keplar/Agex/repos/project/secret_key.txt') as f:
+#     LOCAL_SECRET_KEY = f.read().strip()
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', LOCAL_SECRET_KEY)
 
