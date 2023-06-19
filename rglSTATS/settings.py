@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', LOCAL_SECRET_KEY)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['web-production-d1fab.up.railway.app', '127.0.0.1']
+ALLOWED_HOSTS = ['web-production-d1fab.up.railway.app']
 
 CSRF_TRUSTED_ORIGINS = ['https://web-production-d1fab.up.railway.app']
 # Application definition
@@ -89,13 +89,13 @@ WSGI_APPLICATION = 'rglSTATS.wsgi.application'
 db_from_env = dj_database_url.config(conn_max_age=500)
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rgl_stats2',
-        'USER': 'postgres',
-        'PASSWORD': 'TeamFortress2',
-        'HOST': 'localhost'
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'rgl_stats2',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'TeamFortress2',
+    #     'HOST': 'localhost'
+    # }
 }
 
 DATABASES['default'].update(db_from_env)
