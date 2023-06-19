@@ -1,0 +1,45 @@
+{% load static %}
+{% load custom_filters %}
+
+<link rel="stylesheet" href="{% static 'leaderboards/style.css' %}">
+<div class="centered search-page-border">
+    <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="player" class="player-title search-title">Search Player History</label>
+            <div id="player_search" style="display: inline">
+                <input
+                    class="search-box-main"
+                    id="player_id"
+                    type="text"
+                    name="player_id"
+                    value=""
+                    placeholder="Enter Player Steam ID"
+                />
+                <input class="tablebutton search-button" name="fetch_data" id="search" type="submit" value="Search Player" />
+            </div>
+        </form>
+        <script>
+            var player_search = document.getElementById('search')
+            player_search.addEventListener('click', function () {
+                document.getElementById('loading').style.display=""
+                document.getElementById('player_search').style.display="none"
+                // document.getElementById('player_id').disabled=true
+                // document.getElementById('search').disabled=true
+                // var player_id = document.getElementById('player').value
+                // window.location.href = '/leaderboards/lookup/' + player_id
+            })
+            
+        </script>
+    </div>
+    <div id="loading" class="centered" style="display: none">
+        <div class="loader"></div>
+        <span class="table-title-text">Loading please wait...</span>
+    </div>
+    <div class="centered">
+        <span class="table-row-text loading-text">
+        Load times for fetching player stats will vary depending on how many seasons the player has participated in and how frequently they are searched for
+        </span>
+    </div>
+
+</div>

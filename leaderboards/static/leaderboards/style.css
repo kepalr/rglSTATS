@@ -1,0 +1,216 @@
+* {
+    box-sizing: border-box;
+  }
+  
+.row {
+    margin-left:-5px;
+    margin-right:-5px;
+}
+
+.column {
+    float: left;
+    width: 30%;
+    padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    text-align: left;
+    padding: 16px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.divbutton {
+    background-color: #008CBA;
+    font-size: 24px;
+    padding: 12px 28px;
+    border-radius: 4px;
+}
+
+.right {
+    display: block;
+    margin-left: auto;
+    margin-right: 0px;
+}
+
+.classbutton {
+    display: inline-block;
+    width: 125px;
+    height: 125px;
+    background-position: center;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-color:  #E7B53B;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.tablebutton {
+    background-color: #cf6a32;
+    width: 100%;
+    font-size: 24px;
+    padding: 6px 28px;
+    margin-top: 2px;
+    border-radius: 4px;
+}
+
+.classicon-small {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.scouticon {
+    background-image: url("icons/scout.png");
+}
+
+.soldiericon {
+    background-image: url("icons/soldier.png");
+}
+
+.demomanicon {
+    background-image: url("icons/demoman.png");
+}
+
+.medicicon {
+    background-image: url("icons/medic.png");
+}
+
+.snipericon {
+    background-image: url("icons/sniper.png");
+}
+
+.spyicon {
+    background-image: url("icons/spy.png");
+}
+
+.engineericon {
+    background-image: url("icons/engineer.png");
+}
+
+.heavyicon {
+    background-image: url("icons/heavy.png");
+}
+
+.pyroicon {
+    background-image: url("icons/pyro.png");
+}
+
+@font-face {
+    font-family: tf2-font;
+    src: url("fonts/tf2build.ttf")
+}
+
+.table-title-text {
+    font-family: tf2-font;
+    text-decoration: none;
+    font-size: 24px;
+    vertical-align: top;
+}
+
+.table-row-text {
+    font-family: sans-serif;
+    text-decoration: none;
+    font-size: 16px;
+    vertical-align: top;
+}
+
+.player-title {
+    font-family: tf2-font;
+    font-size: 60px;
+}
+
+.centered {
+    text-align: center;
+    margin: auto;
+}
+
+.search-box-main {
+    margin-top: 72px;
+    width: 60%;
+    height: 50px;
+    text-align: left;
+    font-size: 24px
+}
+.search-button {
+    margin-top: 72px;
+    height: 50px;
+    width: 30%;
+    padding: 0px 0px;
+}
+
+.search-title {
+    position: relative;
+}
+
+.player-class-icon {
+    width: 100px;
+    height: 100px;
+    vertical-align: middle;
+}
+
+.topref {
+    vertical-align: top;
+    font-family: tf2-font;
+    color: white;
+    text-decoration: none;
+    font-size: 46px;
+    
+}
+
+.i-fucking-hate-css{
+    margin-top: -90;
+}
+
+.loading-text {
+    font-size: 24px;
+    bottom: 240px;
+}
+
+.loader {
+    /* border: 16px solid #f3f3f3;  */
+    /* border-top: 16px solid #3498db;  */
+    /* border-radius: 50%; */
+    background-image: url("icons/tf2-logo-cool-fixed.png");
+    /* background-repeat: no-repeat; */
+    margin: auto;
+    width: 120px;
+    height: 120px;
+    background-size: 120px 120px;
+    animation: spin 5s linear infinite;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.search-page-border {
+    margin-top: 50px;
+    padding: 30px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: lightgray;
+    width: 60%;
+}

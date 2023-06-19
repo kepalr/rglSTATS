@@ -1,0 +1,86 @@
+{% load static %}
+{% load mathfilters %}
+{% load custom_filters %}
+
+<link rel="stylesheet" href="{% static 'leaderboards/style.css' %}">
+<span>
+    
+    <h1 class="player-title"> {{ player }}'s Stats
+        {% for c in main %}
+            <button class="classbutton {{c.class_played}}icon player-class-icon"></button>
+        {% endfor %}
+        <button class="divbutton right i-fucking-hate-css" ><a class="topref" href="/leaderboards/lookup/">Player Search</a></button>
+    </h1>
+</span>
+ 
+
+{% if stats %}
+
+    {% for season, season_stats in stats.items %}
+
+        <button class="table-title-text tablebutton" id="{{season}}" onclick="toggleTable(id)">{{convert|get_item:season}}</button>
+        <table id="{{season}}-table" class="table-row-text" style="display: None">
+            <th>Team</th>
+            <th>Map</th>
+            {% for header in headers %}
+                <th>{{ header }}</th>
+            {% endfor %}
+            {% for stat in season_stats %}
+                <tr> 
+                    <td>{{stat.get_team}}</td>
+                    <td>{{stat.map}}</td>
+                    {% for key, value in stat.player_stats.items %}
+                        {% if key == 'heal' %}
+                            <td>{{value|div:stat.player_stats.total_time|mul:60|floatformat:0}}</td>
+                        {%elif key == 'total_time' %}
+                            <td>{{value|format_time}}</td>
+                        {% else %}
+                            <td>{{value}}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+
+    {% endfor %} 
+    <h2 class="table-title-text">Season Total</h2>
+    <table class="table-row-text">
+        {% for k, v in season.items %}
+            {% if k not in exclude %}
+                <th>{{k|format_header}}</th>
+            {% endif %}
+        {% endfor %}
+        {% for s in seasons %}
+            <tr> 
+                {% for k, v in s.items %}
+                    {% if k not in exclude %}
+                        {% if k == 'season_id' %}
+                            <td> {{convert|get_item:v}}</td>
+                        {% elif k == 'time_played' %}
+                            <td>{{v|format_time}}</td>
+                        {% elif k == 'heal' %}
+                            <td>{{v|div:s.time_played|mul:60|floatformat:0}}</td>
+                        {% else %}
+                            <td>{{v}}</td>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    
+   
+{% else %}
+    <p>No Stats for this Player.</p>
+{% endif %}
+
+<script>
+    function toggleTable(season){
+        table = season + "-table"
+        document.getElementById(table).style.display = document.getElementById(table).style.display ? "" : "none"
+    }
+    function showFirst(season, max){
+        console.log(season == max ? "nay" : "None")
+        return season == max ? "display: '';" : "display: 'None';"
+    }
+</script>

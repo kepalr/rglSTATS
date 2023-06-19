@@ -1,0 +1,54 @@
+{% load static %}
+{% load mathfilters %}
+{% load custom_filters %}
+
+<link rel="stylesheet" href="{% static 'leaderboards/style.css' %}">
+
+<select name="s" class="filter-selectbox">
+    <option value=127>season 9</option>
+    <option value=129>season 10</option>
+    <option value=133>season 11</option></select>
+
+<h1> 
+    <button class="divbutton"><a class="topref" href="/leaderboards/Invite/{{c}}">Invite</a></button>
+    <button class="divbutton"><a class="topref" href="/leaderboards/Advanced/{{c}}/">Advanced</a></button>
+    <button class="divbutton"><a class="topref" href="/leaderboards/Main/{{c}}">Main</a></button>
+    <button class="divbutton"><a class="topref" href="/leaderboards/Intermediate/{{c}}">Intermediate</a></button>
+    <button class="divbutton"><a class="topref" href="/leaderboards/Amateur/{{c}}">Amateur</a></button>
+    <button class="divbutton"><a class="topref" href="/leaderboards/Newcomer/{{c}}">Newcomer</a></button>
+</h1>
+<h1> 
+    <a href="/leaderboards/{{div}}/"><button class="classbutton topref">ALL</button></a>
+    <a href="/leaderboards/{{div}}/scout/"><button class="classbutton scouticon"></button></a>
+    <a href="/leaderboards/{{div}}/soldier/"><button class="classbutton soldiericon"></button></a>
+    <a href="/leaderboards/{{div}}/demoman/"><button class="classbutton demomanicon"></button></a>
+    <a href="/leaderboards/{{div}}/medic/"><button class="classbutton medicicon"></button></a>
+    <a href="/leaderboards/{{div}}/sniper/"><button class="classbutton snipericon"></button></a>
+    <a href="/leaderboards/{{div}}/spy/"><button class="classbutton spyicon"></button></a>
+</h1>
+
+{% for stat in stats.keys %}
+    <div class="column">
+        <table>
+            <th colspan="100" class="table-title-text"> {{stat|title}} </th>
+        {% for player in stats|get_item:stat %}
+            <tr class="table-row-text">
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    <span class="classicon-small {{player.get_main.class_played}}icon"></span> <a href="/leaderboards/player/{{ player.player_id }}/" class="table-row-text">({{player.get_team_abv}})  {{ player.get_name }} </a>
+                </td>
+                <td>
+                    {% if stat == 'heal' %}
+                    {{player.heal|div:player.time_played|mul:60|floatformat:0}} /m
+                    {% else %}
+                        {{player|get_attr:stat}}
+                    {% endif %}
+                    {% if stat in stat30 %}
+                        ({{ player|get_attr:stat|div:player.time_played|mul:1800|floatformat:1 }} /30m)
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+{% endfor %}

@@ -1,0 +1,57 @@
+{% load render_table from django_tables2 %}
+{% load static %}
+
+<table>
+    <thead>
+      <tr>
+        <th>Player Name</th>
+        <th>Team</th>
+        <th>Games Played</th>
+        <th>Total Time</th>
+        <th>Kills</th>
+        <th>Assists</th>
+        <th>Deaths</th>
+        <th>DAPM</th>
+        <th>Heal</th>
+        <th>Ubers</th>
+        <th>Drops</th>
+        <th>Headshots</th>
+        <th>Headshots Hit</th>
+        <th>Backstabs</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for season_total in season_totals %}
+        <tr>
+          <td>{{ season_total.get_name }}</td>
+          <td>{{ season_total.get_team }}</td>
+          <td>{{ season_total.games_played }}</td>
+          <td>{{ season_total.total_time }}</td>
+          <td>{{ season_total.kills }}</td>
+          <td>{{ season_total.assists }}</td>
+          <td>{{ season_total.deaths }}</td>
+          <td>{{ season_total.dapm }}</td>
+          <td>{{ season_total.heal }}</td>
+          <td>{{ season_total.ubers }}</td>
+          <td>{{ season_total.drops }}</td>
+          <td>{{ season_total.headshots }}</td>
+          <td>{{ season_total.headshots_hit }}</td>
+          <td>{{ season_total.backstabs }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+    {% render_table season_totals %}
+  </table>
+
+<!-- {% load render_table from django_tables2 %}
+<h2>{{division}} LeaderBoards</h2>
+<table>
+    <thead>
+        <tr>
+            <th order_by="games_played">GP</th>
+            <th order_by="kills">Kills</th>
+            <th order_by="deaths">Deaths</th>
+        </tr>
+    </thead>
+    {% render_table season_totals %}
+</table> -->

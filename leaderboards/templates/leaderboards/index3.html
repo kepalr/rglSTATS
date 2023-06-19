@@ -1,0 +1,18 @@
+{% load render_table from django_tables2 %}
+<h2>{{division}} LeaderBoards</h2>
+<table>
+    <thead>
+        <tr>
+            <th order_by="games_played">GP</th>
+            <th order_by="kills">Kills</th>
+            <th order_by="deaths">Deaths</th>
+        </tr>
+    </thead>
+    {% render_table season_totals %}
+</table>
+
+    <!-- <ol>
+    {% for player in player_list %}
+        <li><a href="/leaderboards/{{ player.player_id }}/">{{ player.get_name }} - {{player.kills}} ({{player.get_k_30_m}} /30m) ::: Team {{player.get_team}}</a></li>
+    {% endfor %}
+    </ol> -->
