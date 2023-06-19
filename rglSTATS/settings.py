@@ -89,7 +89,8 @@ WSGI_APPLICATION = 'rglSTATS.wsgi.application'
 db_from_env = dj_database_url.config(conn_max_age=500)
 
 DATABASES = {
-    # 'default': {
+    'default': db_from_env
+    # {
     #     'ENGINE': 'django.db.backends.postgresql',
     #     'NAME': 'rgl_stats2',
     #     'USER': 'postgres',
