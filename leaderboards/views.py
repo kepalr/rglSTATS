@@ -110,7 +110,7 @@ def lookup(request):
         print(p_id)
         fetchNewStats(p_id)
         # return stat(request, p_id)
-        return HttpResponseRedirect(f'/leaderboards/player/{p_id}')
+        return HttpResponseRedirect(f'/player/{p_id}')
     
     else:
         form = SearchPlayer()
