@@ -28,9 +28,9 @@ with open('/home/keplar/Agex/repos/project/secret_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['web-production-d1fab.up.railway.app', '127.0.0.1']
 
-
+CSRF_TRUSTED_ORIGINS = ['https://web-production-d1fab.up.railway.app']
 # Application definition
 
 INSTALLED_APPS = [
