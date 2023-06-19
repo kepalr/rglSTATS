@@ -6,6 +6,7 @@ urlpatterns = [
      # ex: /leaderboards/
     path('leaderboards/', views.index, name='index'),
     path('', views.lookup, name='lookup'),
+    path('lookup/', views.lookup, name='lookup'),
     path('lookup/<int:player_id>/', views.lookup, name='lookup'),
     path('player/<int:player_id>/', views.stat, name='stat'),
     path('leaderboards/<str:div>/', views.index, name='index'),
