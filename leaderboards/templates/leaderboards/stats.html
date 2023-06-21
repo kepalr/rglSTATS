@@ -6,8 +6,8 @@
 <span>
     
     <h1 class="player-title"> {{ player }}'s Stats
-        {% for c in main %}
-            <button class="classbutton {{c.class_played}}icon player-class-icon"></button>
+        {% for c, t in main %}
+            <button class="classbutton {{c}}icon player-class-icon"></button>
         {% endfor %}
         <button class="divbutton right i-fucking-hate-css" ><a class="topref" href="/lookup/">Player Search</a></button>
     </h1>
@@ -27,39 +27,39 @@
             {% endfor %}
             {% for stat in season_stats %}
                 <tr> 
-                    <td>{{stat.get_team}}</td>
-                    <td>{{stat.map}}</td>
-                    {% for key, value in stat.player_stats.items %}
-                        {% if key == 'heal' %}
-                            <td>{{value|div:stat.player_stats.total_time|mul:60|floatformat:0}}</td>
-                        {%elif key == 'total_time' %}
+                    <td>{{stat|get_item:'team_id'}}</td>
+                    <td>{{stat|get_item:'map'}}</td>
+                    {% for key, value in stat|get_items_item:'data' %}
+                        {%if key == 'total_time' %}
                             <td>{{value|format_time}}</td>
                         {% else %}
                             <td>{{value}}</td>
                         {% endif %}
                     {% endfor %}
                 </tr>
+            {% empty %}
+                <div class="centered table-row-text">0 Games Played </div>
             {% endfor %}
         </table>
 
     {% endfor %} 
     <h2 class="table-title-text">Season Total</h2>
     <table class="table-row-text">
-        {% for k, v in season.items %}
+        <th>Season</th>
+        <th>GP</th>
+        {% for k in headers %}
             {% if k not in exclude %}
                 <th>{{k|format_header}}</th>
             {% endif %}
         {% endfor %}
-        {% for s in seasons %}
+        {% for se, s in seasons.items %}
             <tr> 
+                <td> {{convert|get_item:se}}</td>
+                <td> {{s|get_item:'games_played'}}</td>
                 {% for k, v in s.items %}
                     {% if k not in exclude %}
-                        {% if k == 'season_id' %}
-                            <td> {{convert|get_item:v}}</td>
-                        {% elif k == 'time_played' %}
+                        {% if k == 'total_time' %}
                             <td>{{v|format_time}}</td>
-                        {% elif k == 'heal' %}
-                            <td>{{v|div:s.time_played|mul:60|floatformat:0}}</td>
                         {% else %}
                             <td>{{v}}</td>
                         {% endif %}

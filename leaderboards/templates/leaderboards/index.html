@@ -35,7 +35,7 @@
             <tr class="table-row-text">
                 <td>{{ forloop.counter }}</td>
                 <td>
-                    <span class="classicon-small {{player.get_main.class_played}}icon"></span> <a href="/leaderboards/player/{{ player.player_id }}/" class="table-row-text">({{player.get_team_abv}})  {{ player.get_name }} </a>
+                    <span class="classicon-small {{player.get_main.class_played}}icon"></span> <a href="/player/{{ player.player_id }}/" class="table-row-text">({{player.get_team_abv}})  {{ player.get_name }} </a>
                 </td>
                 <td>
                     {% if stat == 'heal' %}

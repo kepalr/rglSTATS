@@ -216,9 +216,10 @@ def getMatchesPlayer(player_id):
     matches = []
     teams = []
     try:
-        past_teams = get(RGL_API + GET_PLAYER + player_id + GET_PLAYER_TEAMS).json()
+        past_teams = get(RGL_API + GET_PLAYER + str(player_id) + GET_PLAYER_TEAMS).json()
     except:  
         print(f'getTeams failed to get teams for player: {player_id}')
+        print(past_teams)
     else:
         for team in past_teams:
             # print(team)
@@ -574,7 +575,7 @@ def fill_season(p_id, matches):
                 append_season_total(the_player, db_data_st, cp)
 
 
-def fetchNewStats(p_id):
+def fetchNewStats(p_id, get_more=True):
     all_matches = getMatchesPlayer(p_id)
     try:
         scan_matches = ScannedMatches.objects.get(player_id=p_id)
@@ -590,12 +591,15 @@ def fetchNewStats(p_id):
     if len(matches_to_scan) > 0:
         print('adding new player data')
         get_logs(p_id, matches_to_scan)
-        get_stats(p_id, matches_to_scan)
-        fill_season(p_id, matches_to_scan)
+        if get_more:
+            get_stats(p_id, matches_to_scan)
+            fill_season(p_id, matches_to_scan)
         scan_matches.save()
     else:
         print('No new data to scan')
     return 1
+    # Ideally, it would be nice to not need to call this twice by returning all the matches as well
+    #return all_matched
 
 
 

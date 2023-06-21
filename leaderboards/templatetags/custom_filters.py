@@ -22,6 +22,14 @@ def get_item(dictionary, key):
     return val
 
 @register.filter
+def get_items_item(dictionary, key):
+    val = dictionary.get(str(key)).items()
+    if val is None:
+        return key
+    return val
+
+
+@register.filter
 def format_header(header):
     convert = {
         'dapm': 'DPM',

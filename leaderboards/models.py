@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.contrib.postgres.fields import ArrayField
+from steamid_converter import Converter
 
 # foreign keys (matches -> player, logs -> match)
 # https://docs.djangoproject.com/en/1.11/ref/contrib/postgres/fields/
@@ -10,6 +11,7 @@ class Match(models.Model):
     match_id = models.IntegerField()
     data = models.JSONField()
 
+    # returns the players that are on the roster for each team
     def get_players(self, both=False): # returns a list of players from the winning team, used to find logs for this match
         if both == False:
             winning_team = self.data.get('winner')
@@ -23,7 +25,7 @@ class Match(models.Model):
             both_teams['team2'] = Player.objects.filter(data__teamId=team2).values()
             return both_teams
     
-    def get_team(self, player_id): # given a player id, figure out which team from this match that player plays for
+    def get_team(self, player_id, string=False): # given a player id, figure out which team from this match that player plays for
         both_teams = {}
         teams = self.data.get('teams')
         both_teams['team1'] = Player.objects.filter(data__teamId=teams[0]['teamId']).values()
@@ -32,25 +34,40 @@ class Match(models.Model):
         team1 = [p['player_id'] for p in both_teams['team1']]
         team2 = [p['player_id'] for p in both_teams['team2']]
         if player_id in team1 and player_id not in team2:
+            if string:
+                return  teams[0]['teamName']
             return teams[0]['teamId']
         elif player_id in team2 and player_id not in team1:
+            if string:
+                return  teams[1]['teamName']
             return teams[1]['teamId']
         elif player_id in team1 and player_id in team2:
             t1 = Player.objects.get(player_id=player_id, data__teamId=teams[0]['teamId'])
-            t1 = [p['joinedAt'] for p in t1['data']['players'] if p['steamId'] == player_id][0]
+            t1 = [p['joinedAt'] for p in t1.data['players'] if p['steamId'] == player_id][0]
             # t1 = [p['joinedAt'] for p in both_teams['team1']['data']['players'] if p['steamId'] == player_id][0]
             t1 = datetime.fromisoformat(t1[:-1]).timestamp()
 
             t2 = Player.objects.get(player_id=player_id, data__teamId=teams[1]['teamId'])
-            t2 = [p['joinedAt'] for p in t2['data']['players'] if p['steamId'] == player_id][0]
+            t2 = [p['joinedAt'] for p in t2.data['players'] if p['steamId'] == player_id][0]
             # t2 = [p['joinedAt'] for p in both_teams['team2']['data']['players'] if p['steamId'] == player_id][0]
             t2 = datetime.fromisoformat(t2[:-1]).timestamp()
             if t1 > t2:
+                if string:
+                    return  teams[0]['teamName']
                 return teams[0]['teamId']
             else:
+                if string:
+                    return  teams[1]['teamName']
                 return teams[1]['teamId']
         else:
-            return None
+            try:
+                return f'Ringer - {self.data["divisionName"]}'
+            except:
+                return f'Ringer - {self.data["divName"]}'
+    
+    # returns what season this match was for
+    def get_season(self):
+        return self.data['seasonId']
             
 
 
@@ -72,6 +89,11 @@ class Log(models.Model):
     match_id = models.IntegerField()
     data = models.JSONField()
     no_log = models.IntegerField(default=0) # 0 - log found, 1 - no log found, 2 - log manually added
+
+    # returns the players from the log
+    def get_players(self):
+        return [Converter.to_steamID64(p) for p in self.data['players'].keys()]
+
 
 class Stat(models.Model):
     season_id = models.IntegerField()
